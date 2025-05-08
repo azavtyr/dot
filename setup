@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+ln -sf "$PWD/bashrc" "$HOME/.bashrc"
+ln -sf "$PWD/wezterm.lua" "$HOME/.wezterm.lua"
+ln -sf "$PWD/profile" "$HOME/.profile"
+ln -sf "$PWD/profile" "$HOME/.bash_profile"
+
+for i in skhd; do
+	cd $i && ./setup
+	cd -
+done
