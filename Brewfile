@@ -4,6 +4,7 @@ cask_args require_sha: true
 brew "bash"
 brew "git"
 brew "gh"
+brew "docker"
 brew "bash-completion"
 brew "exiftool"
 brew "lynx"
