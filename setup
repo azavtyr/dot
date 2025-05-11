@@ -5,7 +5,7 @@ ln -sf "$PWD/wezterm.lua" "$HOME/.wezterm.lua"
 ln -sf "$PWD/profile" "$HOME/.profile"
 ln -sf "$PWD/profile" "$HOME/.bash_profile"
 
-for i in skhd; do
+for i in skhd, mpv; do
 	cd $i && ./setup
 	cd -
 done
