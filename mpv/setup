@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mkdir -p $HOME/.config/mpv
+
+ln -sf "$PWD/mpv.conf" "$HOME/.config/mpv/mpv.conf"
