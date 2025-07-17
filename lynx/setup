@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -p "$HOME/.config/lynx"
+ln -sf "$PWD/lynx.lss" "$HOME/.config/lynx/lynx.lss"
+ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
