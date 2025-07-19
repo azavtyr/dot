@@ -51,20 +51,34 @@ if [ -n "$force_color_prompt" ]; then
 	fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[1;30m\][\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;0;35m\]\W\[\033[1;30m\]]\[\033[0;33m\]\$ \[\033[00m\]'
-else
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+ps1() {
+	gb=$(git branch --show-current $PWD 2>/dev/null)
+
+	if [[ -n $gb ]]; then
+		PS1="\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\](\[\033[31m\]$gb\033[30m\])]\n╚\[\033[0;33m\]\$ \[\033[00m\]"
+	elif [[ ! -n $gb ]]; then
+		PS1="\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\]]\n╚\[\033[0;33m\]\$ \[\033[00m\]"
+	fi
+}
+
+PROMPT_COMMAND="ps1"
+
+# if [ "$color_prompt" = yes ]; then
+#[[ $PWD = $gb ]] && $gb=.
+#[[ -n  ]]
+#	PS1='${debian_chroot:+($debian_chroot)}\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\](\[\033[31m\]$gb\033[30m\])]\n╚\[\033[0;33m\]\$ \[\033[00m\]'
+#else
+#	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
+#unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm* | rxvt*)
-	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-	;;
-*) ;;
-esac
+#case "$TERM" in
+#xterm* | rxvt*)
+#	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#	;;
+#*) ;;
+#esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
