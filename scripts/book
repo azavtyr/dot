@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+choser=$(find "$HOME/Documents/books" -name "*.pdf" -exec basename {} \; | fzf)
+
+sioyek "$HOME/Documents/books/$choser"
