@@ -7,6 +7,7 @@ esac
 
 export GITUSER="$USER"
 export GHREPOS="$HOME/Repos/github.com/$GITUSER"
+export CDPATH=".:$GHREPOS:$HOME"
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
