@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p "$HOME/.vim/autoload"
+ln -sf "$PWD/vimrc" "$HOME/.vimrc"
+ln -sf "$PWD/plug.vim" "$HOME/.vim/autoload/plug.vim"
+
