@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	ln -sf "$PWD/wezterm-mac.lua" "$HOME/.wezterm.lua"
+elif [[ "$OSTYPE" == "linux"* ]]; then
+	ln -sf "$PWD/wezterm-linux.lua" "$HOME/.wezterm.lua"
+fi
