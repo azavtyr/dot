@@ -8,18 +8,22 @@ osascript -e 'tell application "System Preferences" to quit'
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+	sudo -n true
+	sleep 60
+	kill -0 "$$" || exit
+done 2>/dev/null &
 
 read -p 'Please input computer name or leave empty to keep current name: ' COMPUTER_NAME
 
 if [[ -z $COMPUTER_NAME ]]; then
-  echo 'Computer name will not be changed.'
+	echo 'Computer name will not be changed.'
 else
-  sudo scutil --set ComputerName "$COMPUTER_NAME"
-  sudo scutil --set HostName "$COMPUTER_NAME"
-  sudo scutil --set LocalHostName "$COMPUTER_NAME"
-  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
-  echo "New name: $COMPUTER_NAME"
+	sudo scutil --set ComputerName "$COMPUTER_NAME"
+	sudo scutil --set HostName "$COMPUTER_NAME"
+	sudo scutil --set LocalHostName "$COMPUTER_NAME"
+	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$COMPUTER_NAME"
+	echo "New name: $COMPUTER_NAME"
 fi
 
 # Empty Trash securely by default
