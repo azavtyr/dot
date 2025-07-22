@@ -1,0 +1,16 @@
+#!/bin/bash
+
+font_dir="$HOME/.fonts"
+
+down_unzip() {
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.zip -O "$font_dir/UbuntuMono.zip" && unzip "$font_dir/UbuntuMono.zip" -d "$font_dir/UbuntuMonoNerdFont"
+}
+
+if [[ ! -d "$font_dir" ]]; then
+	mkdir "$font_dir"
+	down_unzip
+	fc-cache -fv
+else
+	down_unzip
+	fc-cache -fv
+fi
