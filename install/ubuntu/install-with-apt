@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo apt-get update && sudo apt-get install shellcheck entr shfmt gh git bash-completion curl vim tmux
+sudo apt-get update && sudo apt-get install shellcheck entr shfmt gh git bash-completion curl vim tmux lynx
