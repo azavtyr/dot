@@ -5,7 +5,7 @@ ln -sf "$PWD/dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/profile" "$HOME/.profile"
 ln -sf "$PWD/profile" "$HOME/.bash_profile"
 
-for i in vim tmux; do
+for i in vim tmux lynx; do
 	cd $i && ./setup
 	cd - || return
 done
