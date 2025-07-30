@@ -8,6 +8,7 @@ esac
 export GITUSER="$USER"
 export GHREPOS="$HOME/Repos/github.com/$GITUSER"
 export CDPATH=".:$GHREPOS:$HOME"
+export PAGER='less'
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
@@ -87,5 +88,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias more='less'
 alias clear='printf "\033[H\033[2J"'
 alias c='printf "\033[H\033[2J"'
