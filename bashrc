@@ -7,6 +7,7 @@ esac
 
 export GITUSER="$USER"
 export GHREPOS="$HOME/Repos/github.com/$GITUSER"
+export DOTFILES="$GHREPOS/dot"
 export CDPATH=".:$GHREPOS:$HOME"
 export PAGER='less'
 
@@ -91,3 +92,4 @@ alias egrep='egrep --color=auto'
 alias more='less'
 alias clear='printf "\033[H\033[2J"'
 alias c='printf "\033[H\033[2J"'
+alias dot='cd $DOTFILES'
