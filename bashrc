@@ -37,32 +37,27 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-
 ps1() {
-	gb=$(git branch --show-current "$PWD" 2>/dev/null)
+	local branch
+	local reset='\[\e[0m\]'
+	local gray='\[\e[38;2;146;131;116m\]'
+	local yellow='\[\e[38;2;250;189;47m\]'
+	local blue='\[\e[38;2;131;165;152m\]'
+	local purple='\[\e[38;2;211;134;155m\]'
+	local green='\[\e[38;2;184;187;38m\]'
+	local red='\[\e[38;2;251;73;52m\]'
 
-	if [[ -n $gb ]]; then
-		PS1="\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\](\[\033[31m\]$gb\033[30m\])]\n╚\[\033[0;33m\]\$ \[\033[00m\]"
-	elif [[ -z $gb ]]; then
-		PS1="\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\]]\n╚\[\033[0;33m\]\$ \[\033[00m\]"
+	branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null \
+		|| git rev-parse --short HEAD 2>/dev/null)
+
+	PS1="${gray}╭─[${yellow}\u${gray}@${blue}\h${gray}:${purple}\W"
+	if [[ -n $branch ]]; then
+		PS1+="${gray}]─[${green} ${branch}${gray}"
 	fi
+	PS1+="${gray}]\n${gray}╰─${red}\$${reset} "
 }
 
 PROMPT_COMMAND="ps1"
-
-# if [ "$color_prompt" = yes ]; then
-#[[ $PWD = $gb ]] && $gb=.
-#[[ -n  ]]
-#	PS1='${debian_chroot:+($debian_chroot)}\[\033[30m\]╔[\[\033[0;33m\]\u\[\033[0;30m\]@\[\033[0;34m\]\h\[\033[0;30m\]:\[\033[0;35m\]\W\[\033[30m\](\[\033[31m\]$gb\033[30m\])]\n╚\[\033[0;33m\]\$ \[\033[00m\]'
-#else
-#	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-#fi
-#unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 #case "$TERM" in
