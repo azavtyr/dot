@@ -2,11 +2,16 @@ let g:skip_defaults_vim = 1
 
 set nocompatible
 
+set background=dark
+set termguicolors
+
 set autoindent
 set expandtab
 set tabstop=2
+set softtabstop=2
 " for >> and << 
 set shiftwidth=2
+set smarttab
 
 set hlsearch
 set incsearch
@@ -31,6 +36,13 @@ if has ("syntax")
 endif
 
 filetype plugin on
+
+" The Go filetype plugin resets indentation to hard tabs. Keep the global
+" two-space behavior after filetype settings have been applied.
+augroup two_space_go_indent
+  autocmd!
+  autocmd FileType go setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 
 set nobackup
 set noswapfile

@@ -1,6 +1,7 @@
 #!/bin/sh
 
-mkdir -p "$HOME/.vim/autoload"
-ln -sf "$PWD/vimrc" "$HOME/.vimrc"
-ln -sf "$PWD/plug.vim" "$HOME/.vim/autoload/plug.vim"
+vim_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
+mkdir -p "$HOME/.vim/autoload"
+ln -sf "$vim_dir/vimrc" "$HOME/.vimrc"
+ln -sf "$vim_dir/plug.vim" "$HOME/.vim/autoload/plug.vim"
