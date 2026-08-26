@@ -40,21 +40,20 @@ fi
 ps1() {
 	local branch
 	local reset='\[\e[0m\]'
-	local gray='\[\e[38;2;146;131;116m\]'
-	local yellow='\[\e[38;2;250;189;47m\]'
-	local blue='\[\e[38;2;131;165;152m\]'
-	local purple='\[\e[38;2;211;134;155m\]'
-	local green='\[\e[38;2;184;187;38m\]'
-	local red='\[\e[38;2;251;73;52m\]'
+	local gray='\[\e[0;30m\]'
+	local yellow='\[\e[0;33m\]'
+	local blue='\[\e[0;34m\]'
+	local purple='\[\e[0;35m\]'
+	local red='\[\e[0;31m\]'
 
 	branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null \
 		|| git rev-parse --short HEAD 2>/dev/null)
 
-	PS1="${gray}╭─[${yellow}\u${gray}@${blue}\h${gray}:${purple}\W"
+	PS1="${gray}╔[${yellow}\u${gray}@${blue}\h${gray}:${purple}\W"
 	if [[ -n $branch ]]; then
-		PS1+="${gray}]─[${green} ${branch}${gray}"
+		PS1+="${gray}(${red}${branch}${gray})"
 	fi
-	PS1+="${gray}]\n${gray}╰─${red}\$${reset} "
+	PS1+="${gray}]\n${gray}╚${yellow}\$${reset} "
 }
 
 PROMPT_COMMAND="ps1"
