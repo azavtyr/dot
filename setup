@@ -7,10 +7,7 @@ ln -sf "$PWD/dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/profile" "$HOME/.profile"
 ln -sf "$PWD/profile" "$HOME/.bash_profile"
 
-mkdir -p "$HOME/Scripts"
-ln -sf "$PWD/scripts/urlencode" "$HOME/Scripts/urlencode"
-
-for i in vim tmux lynx; do
+for i in vim tmux lynx scripts; do
 	cd $i && ./setup
 	cd -
 done

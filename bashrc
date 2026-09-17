@@ -87,3 +87,4 @@ alias more='less'
 alias clear='printf "\033[H\033[2J"'
 alias c='printf "\033[H\033[2J"'
 alias dot='cd $DOTFILES'
+alias '?'=duck

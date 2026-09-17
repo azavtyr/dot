@@ -1,0 +1,14 @@
+#!/bin/sh
+
+script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd) || exit 1
+
+if [ -n "${TMUX:-}" ] && command -v tmux >/dev/null 2>&1; then
+  tmux rename-window "$*" || :
+fi
+
+query=
+if [ -n "$*" ]; then
+  query=$("$script_dir/urlencode" "$*") || exit 1
+fi
+
+exec "$script_dir/lynx" "https://lite.duckduckgo.com/lite?kd=-1&kp=-1&q=$query"
