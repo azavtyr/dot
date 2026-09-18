@@ -1,7 +1,13 @@
 #!/bin/sh
 
 vim_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+nvim_config_dir=${XDG_CONFIG_HOME:-"$HOME/.config"}/nvim
+nvim_autoload_dir=${XDG_DATA_HOME:-"$HOME/.local/share"}/nvim/site/autoload
 
 mkdir -p "$HOME/.vim/autoload"
 ln -sf "$vim_dir/vimrc" "$HOME/.vimrc"
 ln -sf "$vim_dir/plug.vim" "$HOME/.vim/autoload/plug.vim"
+
+mkdir -p "$nvim_config_dir" "$nvim_autoload_dir"
+ln -sf "$vim_dir/vimrc" "$nvim_config_dir/init.vim"
+ln -sf "$vim_dir/plug.vim" "$nvim_autoload_dir/plug.vim"

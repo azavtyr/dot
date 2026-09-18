@@ -53,7 +53,7 @@ set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 
 nnoremap <C-L> :nohl<CR><C-L>
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
   Plug 'dense-analysis/ale'
   Plug 'sainnhe/gruvbox-material'
