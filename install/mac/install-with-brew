@@ -2,4 +2,4 @@
 
 brew install tmux curl git less openssh rsync unzip bash lynx gpg gh shellcheck shfmt bash-completion fzf neovim font-ubuntu-mono-nerd-font || exit $?
 
-exec brew install --cask wezterm obsidian rustdesk telegram spotify chatgpt zen viz pearcleaner tailscale-app karabiner-elements
+exec brew install --cask wezterm obsidian rustdesk telegram spotify chatgpt t3-code zen viz pearcleaner tailscale-app karabiner-elements
