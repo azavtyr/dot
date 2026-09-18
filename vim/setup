@@ -1,6 +1,6 @@
 #!/bin/sh
 
-vim_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+vim_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
 mkdir -p "$HOME/.vim/autoload"
 ln -sf "$vim_dir/vimrc" "$HOME/.vimrc"

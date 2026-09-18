@@ -6,5 +6,5 @@ script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
 mkdir -p "$HOME/Scripts"
 for script in duck lynx urlencode; do
-  ln -sf "$script_dir/$script" "$HOME/Scripts/$script"
+	ln -sf "$script_dir/$script" "$HOME/Scripts/$script"
 done

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+lynx_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+
 mkdir -p "$HOME/.config/lynx"
-ln -sf "$PWD/lynx.lss" "$HOME/.config/lynx/lynx.lss"
-ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
+ln -sf "$lynx_dir/lynx.lss" "$HOME/.config/lynx/lynx.lss"
+ln -sf "$lynx_dir/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"

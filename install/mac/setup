@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -e
+
+script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+repo_dir=$(CDPATH='' cd -- "$script_dir/../.." && pwd)
+
+if ! xcode-select -p >/dev/null 2>&1; then
+	xcode-select --install
+	printf '%s\n' 'Complete the Command Line Tools installation, then run setup again.'
+	exit 1
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+	homebrew_installer=$(mktemp)
+	trap 'rm -f "$homebrew_installer"' EXIT HUP INT TERM
+	/usr/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$homebrew_installer"
+	/bin/bash "$homebrew_installer"
+	rm -f "$homebrew_installer"
+	trap - EXIT HUP INT TERM
+fi
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+	eval "$(/usr/local/bin/brew shellenv)"
+else
+	printf '%s\n' 'Homebrew installation failed.' >&2
+	exit 1
+fi
+
+brew tap asmvik/formulae
+brew trust --formula asmvik/formulae/skhd
+"$script_dir/install-with-brew"
+
+bash_path="$(brew --prefix)/bin/bash"
+if ! grep -Fxq "$bash_path" /etc/shells; then
+	printf '%s\n' "$bash_path" | sudo tee -a /etc/shells >/dev/null
+fi
+
+current_shell=$(dscacheutil -q user -a name "$USER" | awk '/^shell:/ { print $2 }')
+if [[ $current_shell != "$bash_path" ]]; then
+	sudo chsh -s "$bash_path" "$USER"
+fi
+
+"$repo_dir/wezterm/setup"
+"$repo_dir/skhd/setup"

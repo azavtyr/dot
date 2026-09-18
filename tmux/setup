@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-ln -sf "$PWD/tmux.conf" "$HOME/.tmux.conf"
+tmux_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+
+ln -sf "$tmux_dir/tmux.conf" "$HOME/.tmux.conf"
