@@ -1,5 +1,5 @@
 #!/bin/bash
 
-brew install tmux curl git less openssh rsync unzip bash lynx gpg gh shellcheck shfmt bash-completion fzf tree neovim font-ubuntu-mono-nerd-font asmvik/formulae/skhd || exit $?
+brew install tmux curl git less openssh rsync unzip bash lynx gpg gh shellcheck shfmt bash-completion fzf neovim font-ubuntu-mono-nerd-font asmvik/formulae/skhd || exit $?
 
 exec brew install --cask wezterm obsidian rustdesk telegram spotify chatgpt zen viz pearcleaner flashspace tailscale karabiner-elements
