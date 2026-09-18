@@ -3,7 +3,6 @@
 set -e
 
 repo_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
-platform=$(uname -s)
 
 github_repo_path() {
 	local origin_url repo_path
@@ -81,32 +80,7 @@ relocate_repo() {
 	repo_dir=$target_dir
 }
 
-case $platform in
-Darwin)
-	"$repo_dir/install/mac/setup" "$@"
-	;;
-Linux)
-	if (($# > 0)); then
-		printf '%s\n' 'Setup options are only supported on macOS.' >&2
-		exit 2
-	fi
-	if [[ ! -r /etc/os-release ]]; then
-		printf '%s\n' 'Unable to identify the Linux distribution.' >&2
-		exit 1
-	fi
-	# shellcheck source=/dev/null
-	. /etc/os-release
-	if [[ ${ID:-} != ubuntu ]]; then
-		printf 'Unsupported Linux distribution: %s\n' "${ID:-unknown}" >&2
-		exit 1
-	fi
-	"$repo_dir/install/ubuntu/setup"
-	;;
-*)
-	printf 'Unsupported operating system: %s\n' "$platform" >&2
-	exit 1
-	;;
-esac
+"$repo_dir/install/mac/setup" "$@"
 
 relocate_repo
 
@@ -119,6 +93,6 @@ for component in vim tmux lynx scripts wezterm; do
 	"$repo_dir/$component/setup"
 done
 
-if [[ $platform == Darwin && ${1:-} == --opt ]]; then
+if [[ ${1:-} == --opt ]]; then
 	"$repo_dir/skhd/setup"
 fi

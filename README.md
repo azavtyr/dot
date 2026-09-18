@@ -1,12 +1,12 @@
 # dot
-Here's my config files, scripts, etc.
+My macOS config files and scripts.
 
 Run `./setup` from this repository to install the config symlinks and link
-`duck`, `lynx`, `urlencode`, and `vic` into `~/Scripts`. On macOS, run
-`./setup --opt` to also install FlashSpace and skhd. To install only the
+`duck`, `lynx`, `urlencode`, and `vic` into `~/Scripts`. Run `./setup --opt`
+to also install FlashSpace and skhd. To install only the
 script symlinks, run `./scripts/setup`.
 
-After installing the platform packages, `./setup` moves a GitHub clone into
+After installing the required packages, `./setup` moves a GitHub clone into
 `~/Repos/github.com/<owner>/<repo>` before creating any config symlinks. The
 owner and repository name come from the `origin` remote. Set `REPOS` to use a
 different absolute repository root; Bash will keep using that value for the

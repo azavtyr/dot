@@ -1,3 +1,0 @@
-#!/bin/sh
-
-sudo apt-get update && sudo apt-get install shellcheck entr shfmt gh git bash-completion curl wget unzip fontconfig gpg vim tmux lynx -y

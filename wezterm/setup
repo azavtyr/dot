@@ -2,8 +2,4 @@
 
 wezterm_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	ln -sf "$wezterm_dir/wezterm-mac.lua" "$HOME/.wezterm.lua"
-elif [[ "$OSTYPE" == "linux"* ]]; then
-	ln -sf "$wezterm_dir/wezterm-linux.lua" "$HOME/.wezterm.lua"
-fi
+ln -sf "$wezterm_dir/wezterm.lua" "$HOME/.wezterm.lua"

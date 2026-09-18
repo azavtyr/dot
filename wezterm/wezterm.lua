@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 return {
   window_close_confirmation = 'NeverPrompt',
-  default_prog = {'/opt/homebrew/bin/bash','--login'}, 
+  default_prog = {'/opt/homebrew/bin/bash','--login'},
   color_scheme = 'Gruvbox Material (Gogh)',
   font = wezterm.font('UbuntuMono Nerd Font'),
   font_size = 28,

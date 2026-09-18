@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
-
-"$script_dir/install-with-apt"
-"$script_dir/install-ubuntu-mono-font"
-"$script_dir/install-wezterm"
