@@ -22,7 +22,26 @@ set -o vi
 shopt -s histappend
 shopt -s checkwinsize
 
-PATH="$HOME/Scripts:$HOME/.local/bin:$HOME/bin:$PATH"
+pathprepend() {
+	local directory
+	for directory in "$@"; do
+		[[ -d $directory ]] || continue
+		PATH=${PATH//":$directory:"/:}
+		PATH=${PATH/#"$directory:"/}
+		PATH=${PATH/%":$directory"/}
+		PATH="$directory${PATH:+":$PATH"}"
+	done
+	export PATH
+}
+
+# The last entry becomes the first one in PATH.
+pathprepend \
+	"$HOME/bin" \
+	"$HOME/.local/bin" \
+	"$HOME/Scripts" \
+	/opt/homebrew/sbin \
+	/opt/homebrew/bin \
+	/opt/homebrew/opt/curl/bin
 
 set-editor() {
 	export EDITOR="$1"
