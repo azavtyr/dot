@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ "$#" -ne 1 ]; then
+	printf '%s\n' 'Usage: vic <command>' >&2
+	exit 2
+fi
+
+if ! command_path=$(command -v -- "$1"); then
+	printf 'Command not found: %s\n' "$1" >&2
+	exit 1
+fi
+
+if [ ! -f "$command_path" ]; then
+	printf 'Command is not an editable file: %s\n' "$1" >&2
+	exit 1
+fi
+
+editor=${EDITOR:-vi}
+exec "$editor" "$command_path"
