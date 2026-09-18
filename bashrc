@@ -95,3 +95,28 @@ p() {
 	[[ -n $dir ]] || return
 	cd "$dir" || return
 }
+
+# Load command completions installed by Homebrew or the system package.
+if command -v brew >/dev/null 2>&1; then
+	brew_prefix=$(brew --prefix)
+	if [[ -r $brew_prefix/etc/profile.d/bash_completion.sh ]]; then
+		# shellcheck source=/dev/null
+		source "$brew_prefix/etc/profile.d/bash_completion.sh"
+	fi
+	unset brew_prefix
+fi
+
+if [[ -z ${BASH_COMPLETION:-} ]]; then
+	if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+		# shellcheck source=/dev/null
+		source /usr/share/bash-completion/bash_completion
+	elif [[ -r /etc/bash_completion ]]; then
+		# shellcheck source=/dev/null
+		source /etc/bash_completion
+	fi
+fi
+
+if command -v gh >/dev/null 2>&1; then
+	# shellcheck disable=SC1090
+	source <(gh completion -s bash)
+fi
