@@ -6,7 +6,8 @@ case $- in
 esac
 
 export GITUSER="$USER"
-export GHREPOS="$HOME/Repos/github.com/$GITUSER"
+export REPOS="$HOME/Repos"
+export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/dot"
 export CDPATH=".:$GHREPOS:$HOME"
 export PAGER='less'
@@ -124,6 +125,57 @@ p() {
 	dir=$(find "$GHREPOS" -mindepth 1 -maxdepth 1 -type d | fzf) || return
 	[[ -n $dir ]] || return
 	cd "$dir" || return
+}
+
+clone() {
+	if (($# != 1)); then
+		printf '%s\n' 'Usage: clone <repo|owner/repo|GitHub URL>' >&2
+		return 2
+	fi
+
+	local repo=$1 user name user_dir path
+	repo=${repo#https://github.com/}
+	repo=${repo#http://github.com/}
+	repo=${repo#git@github.com:}
+	repo=${repo%/}
+	repo=${repo%.git}
+
+	if [[ $repo == */* ]]; then
+		user=${repo%%/*}
+		name=${repo#*/}
+	else
+		user=$GITUSER
+		name=$repo
+	fi
+
+	if [[ ! $user =~ ^[A-Za-z0-9][A-Za-z0-9-]*$ ||
+		! $name =~ ^[A-Za-z0-9._-]+$ || $name == '.' || $name == '..' ]]; then
+		printf 'Invalid GitHub repository: %s\n' "$1" >&2
+		return 2
+	fi
+
+	user_dir="$REPOS/github.com/$user"
+	path="$user_dir/$name"
+
+	if [[ -d $path ]]; then
+		cd "$path" || return
+		return
+	fi
+
+	if [[ -e $path ]]; then
+		printf 'Path exists and is not a directory: %s\n' "$path" >&2
+		return 1
+	fi
+
+	if ! command -v gh >/dev/null 2>&1; then
+		printf '%s\n' 'gh command not found.' >&2
+		return 1
+	fi
+
+	mkdir -p "$user_dir" || return
+	printf 'Cloning %s/%s into %s\n' "$user" "$name" "$path"
+	gh repo clone "$user/$name" "$path" -- --recurse-submodules || return
+	cd "$path" || return
 }
 
 # Load command completions installed by Homebrew or the system package.
