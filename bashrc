@@ -24,6 +24,13 @@ shopt -s checkwinsize
 
 PATH="$HOME/Scripts:$HOME/.local/bin:$HOME/bin:$PATH"
 
+if command -v nvim >/dev/null 2>&1; then
+	export EDITOR=nvim
+	export VISUAL=nvim
+	export GIT_EDITOR=nvim
+	export GH_EDITOR=nvim
+fi
+
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
