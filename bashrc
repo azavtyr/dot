@@ -6,7 +6,7 @@ case $- in
 esac
 
 export GITUSER="$USER"
-export REPOS="$HOME/Repos"
+export REPOS="${REPOS:-$HOME/Repos}"
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/dot"
 export CDPATH=".:$GHREPOS:$HOME"

@@ -3,7 +3,6 @@
 set -e
 
 script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
-repo_dir=$(CDPATH='' cd -- "$script_dir/../.." && pwd)
 
 install_optional=false
 case $# in
@@ -61,9 +60,4 @@ fi
 current_shell=$(dscacheutil -q user -a name "$USER" | awk '/^shell:/ { print $2 }')
 if [[ $current_shell != "$bash_path" ]]; then
 	sudo chsh -s "$bash_path" "$USER"
-fi
-
-"$repo_dir/wezterm/setup"
-if $install_optional; then
-	"$repo_dir/skhd/setup"
 fi
