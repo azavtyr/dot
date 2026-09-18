@@ -5,6 +5,23 @@ set -e
 script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 repo_dir=$(CDPATH='' cd -- "$script_dir/../.." && pwd)
 
+install_optional=false
+case $# in
+0) ;;
+1)
+	if [[ $1 == --opt ]]; then
+		install_optional=true
+	else
+		printf 'Usage: %s [--opt]\n' "$0" >&2
+		exit 2
+	fi
+	;;
+*)
+	printf 'Usage: %s [--opt]\n' "$0" >&2
+	exit 2
+	;;
+esac
+
 if ! xcode-select -p >/dev/null 2>&1; then
 	xcode-select --install
 	printf '%s\n' 'Complete the Command Line Tools installation, then run setup again.'
@@ -27,9 +44,14 @@ else
 	exit 1
 fi
 
-brew tap asmvik/formulae
-brew trust --formula asmvik/formulae/skhd
 "$script_dir/install-with-brew"
+
+if $install_optional; then
+	brew tap asmvik/formulae
+	brew trust --formula asmvik/formulae/skhd
+	brew install asmvik/formulae/skhd
+	brew install --cask flashspace
+fi
 
 bash_path="$(brew --prefix)/bin/bash"
 if ! grep -Fxq "$bash_path" /etc/shells; then
@@ -42,4 +64,6 @@ if [[ $current_shell != "$bash_path" ]]; then
 fi
 
 "$repo_dir/wezterm/setup"
-"$repo_dir/skhd/setup"
+if $install_optional; then
+	"$repo_dir/skhd/setup"
+fi

@@ -6,9 +6,13 @@ repo_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
 case $(uname -s) in
 Darwin)
-	"$repo_dir/install/mac/setup"
+	"$repo_dir/install/mac/setup" "$@"
 	;;
 Linux)
+	if (($# > 0)); then
+		printf '%s\n' 'Setup options are only supported on macOS.' >&2
+		exit 2
+	fi
 	if [[ ! -r /etc/os-release ]]; then
 		printf '%s\n' 'Unable to identify the Linux distribution.' >&2
 		exit 1
