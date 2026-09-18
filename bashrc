@@ -88,3 +88,10 @@ alias clear='printf "\033[H\033[2J"'
 alias c='printf "\033[H\033[2J"'
 alias dot='cd $DOTFILES'
 alias '?'=duck
+
+p() {
+	local dir
+	dir=$(find "$GHREPOS" -mindepth 1 -maxdepth 1 -type d | fzf) || return
+	[[ -n $dir ]] || return
+	cd "$dir" || return
+}
